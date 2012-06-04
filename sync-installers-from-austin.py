@@ -1,4 +1,6 @@
-
+import os
+import sys
+from command import Command
 
 class Package:
     src = ''
@@ -18,73 +20,67 @@ class Package:
         
 
 packages = [
-            #Package(r'\\nirvana\lvpublic\licensing\GetLicense',
-            #        r'\\us-ber-bears\Software\Nirvana\GetLicense'),
+            Package(r'\\nirvana\lvpublic\licensing\GetLicense',
+                    r'\\us-ber-bears\Software\Nirvana\GetLicense'),
+            Package(r'\\nirvana\NISoftwareReleased\Windows\Distributions\LabVIEW Add-ons\Unit Test Framework',
+                    r'\\us-ber-bears\Software\Nirvana\Unit Test Framework',
+                    ['2011']),
             Package(r'\\nirvana\NISoftwareReleased\Windows\Distributions\LabVIEW Add-ons\FPGA IP Builder', 
                     r'\\us-ber-bears\Software\Nirvana\FPGA IP Builder'),
+            Package(r'\\nirvana\NISoftwareReleased\Windows\Distributions\Device Drivers', 
+                    r'\\us-ber-bears\Software\Nirvana\Device Drivers',
+                    ['2012']),
             Package(r'\\nirvana\NISoftwareReleased\Windows\Suites\LabVIEW Platform DVD',
                     r'\\us-ber-bears\Software\Nirvana\LabVIEW Platform DVD',
                     #['2010', '2010 SP1', '2011', '2011 SP1'])
                     ['2011/English', '2011 SP1/English'])
            ]
 
-import subprocess
-import sys
-import os
-    
-class Command:
-    exe = ''
-    opt = ''
-    def __init__(self, exe, opt):
-        self.exe = exe
-        self.opt = opt
-    
-    def run(self, *args):
-        argstr = reduce(lambda x,y: x + ' ' + y, args)        
-        cmdstr = "{0} {1} {2}".format(self.exe, self.opt, argstr)
-        print cmdstr
-        sys.stdout.flush()
-        status = subprocess.call(cmdstr)
-        return status
-
-path = 'C:\\cygwin\\bin\\'
-#path = '/usr/bin/'
-suffix = '.exe'
-#suffix = ''
-
-rsync = Command(path + 'rsync' + suffix, '-rltgod --delete')
-rsyncprogress = Command(path + 'rsync' + suffix, '-rltgod --delete --progress')
-rsyncdry = Command(r'C:\cygwin\bin\rsync.exe', '-rltgod --delete --progress --dry-run')
-echo = Command(r'C:\cygwin\bin\echo.exe', '')
-
 class SyncError(Exception):
     pass
 
-def sync(src, dest):
-    cmd = rsyncdry
-    cmd = rsyncprogress
-    #cmd = echo  
+
+def sync(src, dest, synccmd):
     src2 = "'" + src.replace('\\', '/') + '/' + "'"
     dest2 = "'" + dest.replace('\\', '/') + '/' + "'"
     if not os.path.exists(dest2):
         os.makedirs(dest2)
-    status = cmd.run(src2, dest2)
+        if not os.path.exists(dest2): raise SyncError
+    status = synccmd.run(src2, dest2)
     if (status != 0):
         raise SyncError
         
-    
+
+prefix = ''
+suffix = ''
+if 'cygwin' in sys.platform:
+    prefix = '/usr/bin/'
+    suffix = ''
+else:
+    prefix = 'C:\\cygwin\\bin\\'
+    suffix = '.exe'
+
+rsyncpath = prefix + 'rsync' + suffix
+echopath = prefix + 'echo' + suffix
+
+rsync = Command(rsyncpath, '-rlt --delete')
+rsyncprogress = Command(rsyncpath, '-rlt --delete --progress')
+rsyncdry = Command(rsyncpath, '-rlt --delete --progress --dry-run')
+echo = Command(echopath, '')
+
 
 def sync_all():
+    synccmd = rsyncprogress
     for package in packages:
         print package
         src = package.src
         dest = package.dest
         versions = package.versions
         if len(versions) == 0:
-            sync(src, dest)
+            sync(src, dest, synccmd)
         else:
             for v in versions:
-                sync(src + '\\' + v, dest + '\\' + v)
+                sync(src + '\\' + v, dest + '\\' + v, synccmd)
 
 
 try:

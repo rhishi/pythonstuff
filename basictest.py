@@ -45,23 +45,3 @@ myprint1([1, 2])
 #myprint2(1)
 #myprint2(1, 2)
 myprint2([1, 2])
-
-import subprocess
-
-print 'subprocess.call:'
-subprocess.call(r'C:\cygwin\bin\bash.exe --version')
-subprocess.call(r'C:\cygwin\bin\bash.exe --help')
-subprocess.call(r'C:\cygwin\bin\bash.exe -c "echo Sa and An"')
-subprocess.call(r'C:\cygwin\bin\echo.exe Sa and An and Fo')
-subprocess.call(r"C:\cygwin\bin\ls.exe '/cygdrive/c/Program Files/'")
-print
-
-print 'subprocess.check_output:'
-print subprocess.check_output(r'C:\cygwin\bin\bash.exe --version')
-
-import os
-print os.path.exists('C:/Users/')
-print os.path.exists('//us-ber-bears/Software/')
-
-if not os.path.exists('//us-ber-bears/Software/test'):
-    os.makedirs('//us-ber-bears/Software/test')
