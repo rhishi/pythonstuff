@@ -1,7 +1,35 @@
-
+# encoding: utf-8
 
 a = [0, 1, 2, 3]
 b = [7, 6, 5, 4]
+
+def myprint1(*args):
+    print "myprint1:",
+    for a in args:
+        print a, ';',
+    print
+
+def myprint2(args):
+    print "myprint2:",
+    for a in args:
+        print a, ';',
+    print
+
+myprint1()
+myprint1(1)
+myprint1(1, 2)
+myprint1((1, 2))
+myprint1(*(1, 2))
+myprint1([1, 2])
+myprint1(*[1, 2])
+print
+
+#myprint2()
+#myprint2(1)
+#myprint2(1, 2)
+myprint2((1, 2))
+myprint2([1, 2])
+print
 
 print "%50s =" % "a", a
 print "%50s =" % "b", b
@@ -21,27 +49,19 @@ print "%50s =" % "sum([list(t) for t in zip(*zip(a, b))], [])", sum([list(t) for
 
 print "%50s =" % "reduce(lambda x,y: x+y, zip(*zip(a, b)))", reduce(lambda x,y: x+y, zip(*zip(a, b)))
 
-print 'String with backslash \\ in it.'
-print r'String with two backslashes \\ in it.'
 
-def myprint1(*args):
-    print "myprint1:",
-    for a in args:
-        print a, ';',
-    print
 
-def myprint2(args):
-    print "myprint2:",
-    for a in args:
-        print a, ';',
-    print
+def hello_english(): return "Hello"
+def hello_hindi(): return "Namaskar"
 
-myprint1()
-myprint1(1)
-myprint1(1, 2)
-myprint1([1, 2])
+hello = { 'english': hello_english, 'hindi': hello_hindi }
 
-#myprint2()
-#myprint2(1)
-#myprint2(1, 2)
-myprint2([1, 2])
+for language in ['english', 'hindi']:
+    print "%s says %s" % (hello[language].__name__, hello[language]())
+    print "%s also says %s" % (hello[language].func_name, hello[language]())
+
+    
+
+
+
+
