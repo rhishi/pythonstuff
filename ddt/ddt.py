@@ -28,6 +28,19 @@ def datalist(values):
     return wrapper
 
 
+def datalists(*valuelists):
+    """
+    Method decorator to add to your test methods.
+
+    Should be added to methods of instances of ``unittest.TestCase``.
+    """
+    productlist = list(itertools.product(*valuelists))
+    def wrapper(func):
+        setattr(func, MAGIC, productlist)
+        return func
+    return wrapper
+
+
 def ddt(cls):
     """
     Class decorator for instances of ``unittest.TestCase``.
