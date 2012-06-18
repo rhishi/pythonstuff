@@ -93,3 +93,48 @@ def fft_r4_simple(x):
         X[k], X[k + N/4], X[k + N/2], X[k + 3*N/4] = dft4(quartet)
     return X
 
+
+def realfftpair(x, y):
+  """ Two unrelated real signals FFT'ed using one complex FFT.
+
+      z(n) = x(n) + jy(n).
+      Hence,
+        x(n) =   (z(n) + z*(n))/2
+        y(n) = -j(z(n) - z*(n))/2
+      Hence,
+        X(k) =   (Z(k) + Z*(k))/2
+        Y(k) = -j(Z(k) - Z*(k))/2
+      We have, Z*(k) = (Z(N-k))*
+      Hence,
+        X(k) =   (Z(k) + (Z(N-k))*)/2
+        Y(k) = -j(Z(k) - (Z(N-k))*)/2      
+      Keep in mind that Z(N) = Z(0)
+      Note that, X(k) + jY(k) = Z(k)
+  """
+  N = len(x)
+  if len(y) != N: raise ValueError
+  z = [ xn + 1j * yn for (xn, yn) in zip(x, y) ]
+  Z = fft_r2(z)
+  X = [0] * N
+  Y = [0] * N
+  X[0] =       (Z[0] + Z[0].conjugate())/2
+  Y[0] = -1j * (Z[0] - Z[0].conjugate())/2
+  for k in range(1, N):
+    X[k] =       (Z[k] + Z[N-k].conjugate())/2
+    Y[k] = -1j * (Z[k] - Z[N-k].conjugate())/2
+  return (X, Y)
+
+
+def realfft(x):
+  """Real N-point FFT using one N/2 complex FFT.
+  """
+  N = len(x)
+  if N % 2 != 0: raise ValueError
+  (eve, odd) = x[0::2], x[1::2]
+  (E, O) = realfftpair(eve, odd)
+  twiddles = [ W_(N) ** k for k in range(N/2)]
+  X = [0] * N
+  for k in range(N/2):
+      pair = [E[k], twiddles[k] * O[k]]
+      X[k], X[k + N/2] = dft2(pair)
+  return X

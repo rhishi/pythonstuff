@@ -9,6 +9,7 @@ print "  z.imag =", z.imag
 print "  abs(z) =", abs(z)
 print "  cmath.phase(z) =", cmath.phase(z)
 print "  cmath.polar(z) =", cmath.polar(z)
+print "  cmath.conjugate(z) =", z.conjugate()
 print "  cmath.rect(3.6, 0.98) =", cmath.rect(3.6, 0.98)
 print ""
 
