@@ -46,7 +46,7 @@ def fft_r4_cryptic(x):
              dft4[i][3] * s[3][k] for k in range(0, N/4) ] for i in range(0, 4) ]
     return res[0] + res[1] + res[2] + res[3]
 
-# Now let's write it nicely, being as understandable as the textbook formulas.
+# Now let's write it all nicely, being as understandable as the textbook formulas.
 
 def W_(N):
     return cmath.rect(1, -2 * math.pi / N)

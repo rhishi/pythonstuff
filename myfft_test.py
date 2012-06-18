@@ -4,7 +4,7 @@ import myfft
 from ddt import ddt, data, datalist, datalists
 
 def myprint(x):
-    print ["{0.real:.3g} + {0.imag:.3g}i".format(elm) for elm in x]   
+    print ["{0.real:.3g} + {0.imag:.3g}i".format(elm) for elm in x]
 
 @ddt
 class myfft_test(unittest.TestCase):
@@ -55,7 +55,8 @@ class myfft_test(unittest.TestCase):
 
     variants = [ myfft.fft_r2_cryptic, myfft.fft_r2_simple, myfft.fft_r4_cryptic, myfft.fft_r4_simple ]
         
-    @datalist (vectors)
+    #@datalist (vectors)
+    @data (*vectors)
     def test_dft_equals_fft_r2(self, x):
         self.dft_equals_fft_r2(x)
 
