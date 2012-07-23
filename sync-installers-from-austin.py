@@ -2,6 +2,10 @@ import os
 import sys
 from command import Command
 
+# command to fix read permissions:
+# icacls "\\us-ber-bears\Software\Nirvana\FPGA IP Builder" /grant Everyone:RX /t
+# icacls "\\us-ber-bears\Users\rlimaye" /grant Everyone:RX /t
+ 
 class Package:
     src = ''
     dest = ''

@@ -1,3 +1,4 @@
+from itertools import product
 from functools import wraps
 
 
@@ -6,9 +7,8 @@ MAGIC='%values'  # this value cannot conflict with any real python attribute
 
 def data(*values):
     """
-    Method decorator to add to your test methods.
-
-    Should be added to methods of instances of ``unittest.TestCase``.
+    Decorator to make a test method data-driven using a list of values.
+    A test method is a method of a subclass of ``unittest.TestCase``.
     """
     def wrapper(func):
         setattr(func, MAGIC, values)
@@ -16,25 +16,13 @@ def data(*values):
     return wrapper
 
 
-def datalist(values):
+def dataproduct(*valuelists):
     """
-    Method decorator to add to your test methods.
-
-    Should be added to methods of instances of ``unittest.TestCase``.
+    Decorator to make a test method data-driven using a cartesian product
+    of multiple lists of values.
+    A test method is a method of a subclass of ``unittest.TestCase``.
     """
-    def wrapper(func):
-        setattr(func, MAGIC, values)
-        return func
-    return wrapper
-
-
-def datalists(*valuelists):
-    """
-    Method decorator to add to your test methods.
-
-    Should be added to methods of instances of ``unittest.TestCase``.
-    """
-    productlist = list(itertools.product(*valuelists))
+    productlist = list(product(*valuelists))
     def wrapper(func):
         setattr(func, MAGIC, productlist)
         return func

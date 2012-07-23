@@ -1,7 +1,6 @@
 import unittest
-import itertools
 import myfft
-from ddt import ddt, data, datalist, datalists
+from ddt import ddt, data, dataproduct
 
 def myprint(x):
     print ["{0.real:.3g} + {0.imag:.3g}i".format(elm) for elm in x]
@@ -63,9 +62,9 @@ class myfft_test(unittest.TestCase):
     def test_dft_equals_fft_r4(self, x):
         self.dft_equals_fft_r4(x)
 
-    @datalists (vectors, variants)
-    def test_dft_equals_fft_variant(self, tup):
-        self.dft_equals_fft_variant(*tup)
+    @dataproduct (vectors, variants)
+    def test_dft_equals_fft_variant(self, tupl):
+        self.dft_equals_fft_variant(*tupl)
 
     def test_simple(self):
         self.dft_equals_fft_r2([1, -1, 1, -1])
