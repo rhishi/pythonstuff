@@ -2,8 +2,7 @@
 
 To run it, start IPython in Pylab mode and execute the following commands:
 
-from ipydemo import *
-rundemo('gaussian-distribution-ipythondemo.py')
+import ipydemo; ipydemo.rundemo('gaussian_ipydemo.py')
 
 """
 
