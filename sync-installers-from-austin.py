@@ -65,7 +65,7 @@ packages = [
 
             Package(r'\\nirvana\NISoftwarePrerelease\LabVIEW DSP Designer Pioneer',
                     r'\\us-ber-bears\Software\Nirvana\DSP Design Module',
-                    [r'1.1.0\Daily\20120817_1043']),
+                    [r'1.1.0\Daily\20120817_1043', r'1.1.0\Daily\20120926_1635']),
 
             Package(r'\\nirvana\NISoftwareReleased\Windows\Distributions\LabVIEW Add-ons\FPGA IP Builder', 
                     r'\\us-ber-bears\Software\Nirvana\FPGA IP Builder'),
