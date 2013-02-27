@@ -1,5 +1,4 @@
 import sys
-from types import *
 
 def myprint(prefix, *args):
     print ("%-25s" % prefix),
@@ -9,15 +8,12 @@ def myprint(prefix, *args):
         else:
             print a
 
-myprint("sys.executable = ", sys.executable)
+def print_system_info():
+    myprint("sys.argv[0] = ", sys.argv[0])
+    myprint("sys.executable = ", sys.executable)
+    myprint("sys.version = ", sys.version)
+    myprint("sys.version_info = ", sys.version_info)
+    myprint("sys.platform = ", sys.platform)
+    myprint("sys.path = ", sys.path)
 
-myprint("sys.version = ", sys.version)
-myprint("sys.version_info = ", sys.version_info)
-
-myprint("sys.platform = ", sys.platform)
-
-myprint("sys.path = ", sys.path)
-
-
-
-
+print_system_info()
