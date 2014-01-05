@@ -2,13 +2,14 @@
 
 
 def fxp(number, fractionalBits):
-    """ returns a fixed point representation of a floating point number
-        rounded up to a given number of fractional bits.
-        
-        The returned value is a string of 1's and 0's and a dot.
-        The substring on the left of the dot gives the binary representation
-        of the integer part of the number.  And the right substring
-        gives the rounded fractional part.
+    """
+    Returns a fixed point representation of a floating point number
+    rounded to a given number of fractional bits.
+    
+    The returned value is a string of 1's and 0's and a dot.  The 
+    substring on the left of the dot gives the binary representation
+    of the integer part of the number.  The right substring gives
+    the rounded fractional part.
     """
     scaled = number * 2 ** fractionalBits
     rounded = int(round(scaled))
