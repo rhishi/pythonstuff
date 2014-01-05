@@ -1,5 +1,6 @@
 from types import *
 import math
+import string
 
 def print_fibonacci(n):
     """Print a Fibonacci series up to n."""
@@ -23,7 +24,7 @@ fibs = fibonacci(10000)
 ratios = [float(fibs[i])/fibs[i-1] for i in range(1, len(fibs))]
 
 print "Fibonacci:", fibs
-print "Ratios:", ["%.6g" % r for r in ratios]
+print "Ratios:    [%s]" % string.join(["%.6g" % r for r in ratios], ", ")
 
 print "Golden ratio: %.10g" % ((math.sqrt(5)+1)/2)
 
