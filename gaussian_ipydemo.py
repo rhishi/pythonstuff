@@ -1,6 +1,7 @@
 """IPython demo to illustrate plotting Gaussian distributions using MATPLOTLIB.
 
-To run it, start IPython in Pylab mode and execute the following commands:
+To run it, start IPython in Pylab mode (ipython --pylab) and execute the
+following commands:
 
 import ipydemo; ipydemo.rundemo('gaussian_ipydemo.py')
 

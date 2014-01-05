@@ -6,6 +6,16 @@ from IPython.lib.demo import Demo
 demo = Demo('ipython-demo-demo.py')
 while not demo.finished: demo()
 
+Yes, that's complicated! So we have a wrapper 'rundemo' defined in this
+very file. Using it on this demo itself works too! Execute the commands:
+
+import ipydemo
+ipydemo.rundemo('ipydemo.py')
+
+The only little kink is that the first 'import ipydemo' will execute the
+file, which will blurt out the print statements in a non-demo fashion.
+The second line with 'rundemo' will re-run the file in the demo mode.
+
 Any python script can be run as a demo, but that does little more than showing
 it on-screen, syntax-highlighted in one shot.  If you add a little simple
 markup, you can stop at specified intervals and return to the ipython prompt,
