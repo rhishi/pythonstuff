@@ -1,4 +1,5 @@
-""" IPython demo to illustrate the use of numpy matrices.
+"""
+IPython demo to illustrate the use of numpy matrices.
 
 To run, if you have ipydemo.py, do
 
