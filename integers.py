@@ -1,18 +1,25 @@
 import sys
 
+# First: to understand the uses of "format" below, read these:
+#   Format String Syntax https://docs.python.org/2/library/string.html#formatstrings
+#   Format Specification Mini-Language https://docs.python.org/2/library/string.html#formatspec
+
 # In Python 2, there are two integer types: int, long.
 
 # int is the underlying platform's signed integer type,
 # either 32 or 64 bit, depending on the platform.
 
-# sys.maxint gives the maximum value of int.  It is 2^31-1 or 2^63-1.
+print "2^31 - 1 = {0:20} = {0:17x}      ".format((1 << 31) - 1)
+print "2^63 - 1 = {0:20} = {0:17x}      ".format((1 << 63) - 1)
 
-print "sys.maxint =  {0} =  {0:x}   {1}".format(sys.maxint, type(sys.maxint))
+# sys.maxint gives the maximum value of int.  It is 2^31-1 or 2^63-1.
+maxint = sys.maxint
+print " max int = {0:20} = {0:17x}   {1}".format(maxint, type(maxint))
 
 # There is no sys.minint, but it's simply -sys.maxint-1 as said in Python documentation
 # http://docs.python.org/2/library/stdtypes.html#numeric-types-int-float-long-complex
-
-print "min int    = {0} = {0:x}   {1}".format(-sys.maxint-1, type(-sys.maxint-1))
+minint = -maxint - 1
+print " min int = {0:20} = {0:17x}   {1}".format(minint, type(minint))
 
 print
 
@@ -30,11 +37,15 @@ print
 # Let's test the automatic switchover from int to long
 # On 64-bit platform, the switchover point is between 2^63-1 and 2^63.
 
-for i in range(1, 130):
-    # make 2^i - 1, without spilling beyond i bits.
-    n = (((1 << (i-1)) - 1) << 1) + 1
-    print "2**{0:<3} - 1   is   {1:#35x}   {2}".format(i, n, type(n))
-    print "2**{0:<3}       is   {1:#35x}   {2}".format(i, n+1, type(n+1))
+for r in [ range(1, 22), range(28, 37), range(53, 69), range(88, 100), range(123, 131) ]:
+    for i in r:
+        # make 2^i - 1, without spilling beyond i bits.
+        n = (((1 << (i-1)) - 1) << 1) + 1
+        # i is formatted as left-aligned ('<'), width 3.
+        # n is formatted as hex ('x') with 0x prefix ('#'), width 35.
+        print "2**{0:<3} - 1 = {1:#35x}  {2}".format(i, n, type(n))
+        print "       + 1 = {1:#35x}  {2}".format(i, n+1, type(n+1))
+    print "..."
 print
 
 print -1
