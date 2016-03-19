@@ -1,0 +1,12 @@
+
+
+https://docs.python.org/2/tutorial/inputoutput.html
+
+https://docs.python.org/2/library/stdtypes.html#string-methods
+
+https://docs.python.org/2/library/tempfile.html
+
+https://docs.python.org/2/library/os.html#os.chmod
+
+https://docs.python.org/2/library/shutil.html
+
