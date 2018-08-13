@@ -1,2 +1,7 @@
+# Emacs backup and temporary files
+*~
+.#*
+ 
+# Python non-source or temporary files
 *.pyc
 .ipynb_checkpoints
